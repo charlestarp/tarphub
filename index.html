@@ -5,172 +5,207 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TARPHub</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E👀%3C/text%3E%3C/svg%3E">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap');
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: 'Space Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      background: #000000;
-      color: #fffff5;
+      font-family: 'Space Grotesk', sans-serif;
+      background: #fffff5;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
     }
 
-    /* Yellow accent stripe at top */
-    .top-stripe {
-      width: 100%;
+    .page {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 20px 40px;
+    }
+
+    /* Hero block */
+    .hero {
+      background: #000;
+      color: #fffff5;
+      margin: 0 -20px;
+      padding: 48px 32px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
       height: 4px;
       background: #ffc800;
     }
 
-    .header {
-      text-align: center;
-      padding: 50px 20px 32px;
-    }
-
-    .header h1 {
-      font-size: 2.8rem;
+    .hero h1 {
+      font-size: 2.2rem;
       font-weight: 700;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.01em;
+      color: #fffff5;
+    }
+
+    .hero h1 span {
       color: #ffc800;
+    }
+
+    .hero p {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: rgba(255,255,245,0.5);
+      letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
-    .header p {
-      color: rgba(255, 255, 245, 0.5);
-      font-size: 0.9rem;
-      margin-top: 6px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      font-weight: 400;
-    }
-
+    /* Links */
     .links {
-      width: 100%;
-      max-width: 480px;
-      padding: 0 20px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
+      margin-top: 28px;
     }
 
-    .link-btn {
-      display: block;
-      padding: 16px 20px;
-      background: transparent;
-      border: 2px solid rgba(255, 255, 245, 0.12);
-      border-radius: 10px;
-      color: #fffff5;
+    a.btn {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      border-radius: 12px;
       text-decoration: none;
-      font-size: 1rem;
-      font-weight: 600;
-      text-align: center;
-      transition: all 0.2s ease;
-      letter-spacing: 0.01em;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: transform 0.15s, box-shadow 0.15s;
+      border: none;
     }
 
-    .link-btn:hover {
-      border-color: #ffc800;
-      color: #ffc800;
-      transform: translateY(-1px);
+    a.btn:active { transform: scale(0.98); }
+
+    a.btn .icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
     }
 
-    .link-btn.featured {
+    a.btn .label { flex: 1; }
+    a.btn .label small {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 400;
+      margin-top: 2px;
+    }
+
+    a.btn .arrow {
+      font-size: 0.9rem;
+      opacity: 0.3;
+    }
+
+    /* Yellow featured */
+    .btn-yellow {
       background: #ffc800;
-      border-color: #ffc800;
-      color: #000000;
-    }
-
-    .link-btn.featured:hover {
-      background: #e6b400;
-      border-color: #e6b400;
       color: #000;
+    }
+    .btn-yellow:hover {
+      box-shadow: 0 4px 16px rgba(255, 200, 0, 0.35);
       transform: translateY(-1px);
     }
+    .btn-yellow .icon { background: rgba(0,0,0,0.1); }
+    .btn-yellow .label small { color: rgba(0,0,0,0.55); }
 
-    .link-btn.blue {
-      border-color: #2946af;
-      color: #8093ff;
-    }
-
-    .link-btn.blue:hover {
+    /* Blue */
+    .btn-blue {
       background: #2946af;
-      border-color: #2946af;
       color: #fffff5;
     }
-
-    .link-btn .subtitle {
-      display: block;
-      font-size: 0.75rem;
-      font-weight: 400;
-      opacity: 0.6;
-      margin-top: 3px;
+    .btn-blue:hover {
+      box-shadow: 0 4px 16px rgba(41, 70, 175, 0.35);
+      transform: translateY(-1px);
     }
+    .btn-blue .icon { background: rgba(255,255,255,0.15); }
+    .btn-blue .label small { color: rgba(255,255,245,0.55); }
 
-    .link-btn.featured .subtitle {
-      opacity: 0.7;
+    /* Outline */
+    .btn-outline {
+      background: #fff;
       color: #000;
+      border: 1.5px solid rgba(0,0,0,0.1);
     }
+    .btn-outline:hover {
+      border-color: rgba(0,0,0,0.25);
+      transform: translateY(-1px);
+    }
+    .btn-outline .icon { background: rgba(0,0,0,0.05); }
+    .btn-outline .label small { color: rgba(0,0,0,0.4); }
 
+    /* Footer */
     .footer {
-      margin-top: auto;
-      padding: 20px;
+      margin-top: 48px;
       text-align: center;
-      width: 100%;
+      padding-bottom: 20px;
     }
 
-    .footer-brand {
-      color: rgba(255, 255, 245, 0.15);
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
+    .footer-text {
+      font-size: 0.65rem;
+      color: rgba(0,0,0,0.2);
+      letter-spacing: 0.15em;
       text-transform: uppercase;
     }
 
-    .hr-link {
+    .footer a {
       display: inline-block;
-      margin-top: 10px;
-      color: rgba(255, 255, 245, 0.08);
+      margin-top: 6px;
+      font-size: 0.6rem;
+      color: rgba(0,0,0,0.1);
       text-decoration: none;
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       transition: color 0.2s;
     }
 
-    .hr-link:hover {
-      color: rgba(255, 255, 245, 0.25);
-    }
+    .footer a:hover { color: rgba(0,0,0,0.35); }
   </style>
 </head>
 <body>
-  <div class="top-stripe"></div>
+  <div class="page">
+    <div class="hero">
+      <h1>TARP<span>Hub</span></h1>
+      <p>Toni and Ryan</p>
+    </div>
 
-  <div class="header">
-    <h1>TARPHub</h1>
-    <p>Toni and Ryan</p>
-  </div>
+    <div class="links">
+      <a class="btn btn-yellow" href="https://dice.fm/partner/tickets/event/8e6pa7-toni-and-ryan-podcast-tonis-hens-night-19th-may-troxy-london-tickets" target="_blank">
+        <div class="icon">🎉</div>
+        <div class="label">
+          Toni's Hens Night - London
+          <small>19th May -- Troxy, Limehouse</small>
+        </div>
+        <span class="arrow">&#8250;</span>
+      </a>
 
-  <div class="links">
-    <a class="link-btn featured" href="https://dice.fm/partner/tickets/event/8e6pa7-toni-and-ryan-podcast-tonis-hens-night-19th-may-troxy-london-tickets" target="_blank">
-      Toni's Hens Night - London
-      <span class="subtitle">19th May -- Troxy, Limehouse</span>
-    </a>
+      <a class="btn btn-blue" href="img1.jpg" target="_blank">
+        <div class="icon">📸</div>
+        <div class="label">Random Website 1</div>
+        <span class="arrow">&#8250;</span>
+      </a>
 
-    <a class="link-btn blue" href="img1.jpg" target="_blank">
-      Random Website 1
-    </a>
+      <a class="btn btn-outline" href="img2.jpg" target="_blank">
+        <div class="icon">🔗</div>
+        <div class="label">Random Website 2</div>
+        <span class="arrow">&#8250;</span>
+      </a>
+    </div>
 
-    <a class="link-btn" href="img2.jpg" target="_blank">
-      Random Website 2
-    </a>
-  </div>
-
-  <div class="footer">
-    <div class="footer-brand">tarphub</div>
-    <a href="hr.html" class="hr-link">HR Complaints</a>
+    <div class="footer">
+      <div class="footer-text">tarphub</div>
+      <a href="hr.html">HR Complaints</a>
+    </div>
   </div>
 </body>
 </html>
